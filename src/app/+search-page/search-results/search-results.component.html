@@ -7,8 +7,5 @@
   [hideGear]="true">
 </ds-viewable-collection></div>
 <ds-loading *ngIf="!searchResults || searchResults?.isLoading" message="{{'loading.search-results' | translate}}"></ds-loading>
-<ds-error *ngIf="searchResults?.hasFailed && (!searchResults?.error || searchResults?.error?.statusCode != 400)" message="{{'error.search-results' | translate}}"></ds-error>
-<div *ngIf="searchResults?.payload?.page.length == 0 || searchResults?.error?.statusCode == 400">
-    <!-- {{ 'search.results.no-results' | translate }} <a href="search{{searchConfig.toRestUrl()}}">{{"search.results.no-results-link" | translate}}</a> -->
-  {{searchConfig.toRestUrl('url', undefined, true)}}
-</div>
+<ds-error *ngIf="searchResults?.hasFailed" message="{{'error.search-results' | translate}}"></ds-error>
+<ds-error *ngIf="searchResults?.payload?.page.length == 0" message="{{'search.results.no-results' | translate}}"></ds-error>
