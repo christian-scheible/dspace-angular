@@ -24,12 +24,16 @@ export class SearchOptions {
    * Method to generate the URL that can be used request information about a search request
    * @param {string} url The URL to the REST endpoint
    * @param {string[]} args A list of query arguments that should be included in the URL
+   * @param {boolean} addQuotesToQuery Flag whether query should be surrounded by quotes or not
    * @returns {string} URL with all search options and passed arguments as query parameters
    */
-  toRestUrl(url: string, args: string[] = []): string {
-
+  toRestUrl(url: string, args: string[] = [], addQuotesToQuery: boolean = false): string {
     if (isNotEmpty(this.query)) {
-      args.push(`query=${this.query}`);
+      if (addQuotesToQuery) {
+        args.push(`query=\"${this.query}\"`);
+      } else {
+        args.push(`query=${this.query}`);
+      }
     }
     if (isNotEmpty(this.scope)) {
       args.push(`scope=${this.scope}`);
