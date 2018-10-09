@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
@@ -37,31 +36,16 @@ export class SearchResultsComponent {
    */
   @Input() viewMode: ViewMode;
 
-  constructor(private router: Router) { }
-
   /**
-   * Method to change the current query by surrounding it by quotes if not already present
+   * Method to change the given string by surrounding it by quotes if not already present.
    */
-  reloadQuery(event: Event) {
-    console.log('foo');
-    event.preventDefault();
+  surroundStringWithQuotes(input: string): string {
+    let result = input;
 
-    let newQuery;
-    if (this.searchConfig) {
-      newQuery = this.searchConfig.query;
+    if (hasValue(result) && !(result.startsWith('\"') && result.endsWith('\"'))) {
+      result = `"${result}"`;
     }
 
-    if (hasValue(newQuery) && !(newQuery.startsWith('\"') && newQuery.endsWith('\"'))) {
-      newQuery = `"${newQuery}"`;
-    }
-
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        query: newQuery
-      },
-      queryParamsHandling: 'merge'
-    };
-    this.router.navigate(['/search'], navigationExtras);
+    return result;
   }
-
 }
