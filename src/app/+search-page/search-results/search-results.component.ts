@@ -6,7 +6,7 @@ import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { hasValue } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-search-results',
@@ -42,7 +42,7 @@ export class SearchResultsComponent {
   surroundStringWithQuotes(input: string): string {
     let result = input;
 
-    if (hasValue(result) && !(result.startsWith('\"') && result.endsWith('\"'))) {
+    if (isNotEmpty(result) && !(result.startsWith('\"') && result.endsWith('\"'))) {
       result = `"${result}"`;
     }
 
